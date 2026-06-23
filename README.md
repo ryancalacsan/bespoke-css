@@ -66,9 +66,22 @@ number. A token is defined once and reaches the rest of the system two ways:
 Edit one line in `src/tokens/`, and both paths update together.
 
 **Color roles, not raw colors.** The palette has two levels. Primitives are the
-raw ramps. Semantic roles (`text`, `primary`, `danger`, `border-strong`) are
-what components actually use. Every text-on-surface pairing is chosen to meet
-WCAG 2.2 AA, and the ratios are documented in the token reference.
+raw ramps — `ink` (cool near-black), `bone` (warm paper), `iris` (the blue-violet
+accent), plus danger and success. Semantic roles (`text`, `primary`, `danger`,
+`border-strong`) are what components actually use. Every text-on-surface pairing
+is chosen to meet WCAG 2.2 AA, and the pairings are verified by a script rather
+than by eye (`npm run test:contrast`). That script earned its keep: it forced two
+honest splits the eye would have missed — `primary` (the fill) from `accent-text`
+(links and text on a tint, which a tint can never make dark enough to clear AA in
+the dark theme), and `danger` (light red text) from `danger-solid` (the darker
+red a button needs behind a white label).
+
+**An editorial aesthetic.** The look is "Editorial Noir": a high-contrast serif
+(Fraunces) for display, a refined grotesque (Hanken Grotesk) for UI, a monospace
+(Geist Mono) for the small uppercase labels, all self-hosted via Fontsource. The
+color is mostly monochrome with one iridescent accent gradient used sparingly.
+None of this lives in component logic — it is the token layer, so it could be
+re-skinned again the same way the dark theme was added.
 
 **Two themes, one set of roles.** The dark theme is the payoff of that split. It
 is a second set of values for the same role names, and nothing else. No
@@ -178,6 +191,7 @@ npm run dev           # the demo page at http://localhost:5173
 | `npm run dev`                | Run the Vite demo page              |
 | `npm run storybook`          | Run Storybook with the a11y addon   |
 | `npm test`                   | Interaction tests (play functions)  |
+| `npm run test:contrast`      | Verify every color pairing meets AA |
 | `npm run test:visual`        | Visual regression against baselines |
 | `npm run test:visual:update` | Refresh the visual baselines        |
 | `npm run build`              | Type-check and build the library    |

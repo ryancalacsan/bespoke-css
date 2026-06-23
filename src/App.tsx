@@ -58,11 +58,13 @@ export function App() {
             accessibility as a first principle, not a finishing pass.
           </p>
           <div className="lp__actions">
-            <Button onClick={() => setModalOpen(true)}>
+            <Button shape="pill" onClick={() => setModalOpen(true)}>
               Explore the system
             </Button>
             <Tooltip content="Opens the documented component set">
-              <Button variant="ghost">Storybook</Button>
+              <Button variant="secondary" shape="pill">
+                Storybook
+              </Button>
             </Tooltip>
           </div>
           <ul className="lp__meta">

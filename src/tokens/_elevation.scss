@@ -15,8 +15,12 @@ $z-index: (
   'popover': 1400,
   'toast': 1500,
 );
+
+// Ink-tinted and layered: a tight contact shadow plus a soft ambient one reads
+// more refined than a single blurred drop. Dark themes override these in
+// styles/_root.scss, where plain shadows would otherwise disappear.
 $shadow: (
-  'sm': (0 1px 2px rgb(15 23 42 / 8%)),
-  'md': (0 4px 12px rgb(15 23 42 / 10%)),
-  'lg': (0 12px 32px rgb(15 23 42 / 18%)),
+  'sm': (0 1px 2px rgb(10 13 20 / 6%), 0 1px 1px rgb(10 13 20 / 4%)),
+  'md': (0 4px 12px rgb(10 13 20 / 8%), 0 2px 4px rgb(10 13 20 / 5%)),
+  'lg': (0 18px 48px rgb(10 13 20 / 16%), 0 6px 16px rgb(10 13 20 / 8%)),
 );

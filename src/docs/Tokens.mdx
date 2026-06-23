@@ -17,24 +17,36 @@ component holds a raw hex or pixel value.
 
 ## Color
 
-Primitives are raw ramps (neutral, brand, danger, success). Components never use
-them directly. They use the semantic roles below, which are chosen so every
-text-on-surface pairing clears WCAG 2.2 AA.
+The palette is "Editorial Noir": mostly monochrome, with one expressive accent.
+Primitives are raw ramps — **ink** (cool near-black), **bone** (warm paper
+neutrals), **iris** (the blue-violet accent), plus danger and success. Components
+never use a primitive. They use the semantic roles below, chosen so every
+text-on-surface pairing clears WCAG 2.2 AA in both themes. The pairings are
+verified in CI-adjacent fashion by `npm run test:contrast`.
 
-| Role | Custom property | Value | Contrast on surface |
+| Role | Custom property | Light → Dark | Min contrast |
 | --- | --- | --- | --- |
-| Text | `--color-text` | neutral 900 | 17.4:1 (AAA) |
-| Muted text | `--color-text-muted` | neutral 600 | 7.4:1 (AAA) |
-| Subtle text | `--color-text-subtle` | neutral 500 | 4.7:1 (AA) |
-| On primary | `--color-text-on-primary` | white on brand 600 | 6.3:1 (AA) |
-| Primary action | `--color-primary` | brand 600 | — |
-| Danger text | `--color-danger` | danger 700 | 6.8:1 (AA) |
-| Success text | `--color-success` | success 700 | 4.9:1 (AA) |
-| Field border | `--color-border-strong` | neutral 400 | 3.1:1 boundary |
+| Text | `--color-text` | ink 950 → bone | 17.2:1 |
+| Muted text | `--color-text-muted` | ink 600 → ink 300 | 7.9:1 |
+| Subtle text | `--color-text-subtle` | ink 500 → ink 400 | 4.9:1 |
+| Primary fill | `--color-primary` | iris 600 → iris 400 | — |
+| Label on primary | `--color-text-on-primary` | white → ink 950 | 5.8:1 |
+| Accent text | `--color-accent-text` | iris 600 → iris 300 | 4.9:1 |
+| Danger text | `--color-danger` | danger 700 → danger 400 | 6.2:1 |
+| Danger button | `--color-danger-solid` | danger 700 → danger 600 | 4.8:1 |
+| Field border | `--color-border-strong` | ink 400 | 3.1:1 |
 
-Borders that carry meaning (a field outline) use `--color-border-strong` so they
-clear the 3:1 minimum for UI components. Purely decorative dividers use the
-lighter `--color-border`.
+Two distinctions the system makes deliberately:
+
+- **`primary` (fill) vs `accent-text`.** On a dark surface a tint cannot be dark
+  enough for the iris fill color to clear AA as text, so accent text and links
+  use a lighter `accent-text` role while the button fill stays punchy.
+- **`danger` (text) vs `danger-solid` (button).** Error text wants a light red on
+  dark; a danger button wants a darker red so its white label passes. Same value
+  in light, different in dark.
+
+The signature accent is `--color-gradient-accent`, an iridescent blue-to-violet
+gradient used sparingly (a hero word, a focus glow), never behind body text.
 
 ### Theming
 
@@ -53,10 +65,25 @@ is the text color (a light red on dark), while `--color-danger-solid` is the
 danger button background (a darker red so its white label passes). They are the
 same value in the light theme and diverge in the dark one.
 
+## Typefaces
+
+An editorial pairing, self-hosted with Fontsource so there are no third-party
+requests and no font-swap flash.
+
+| Family | Custom property | Used for |
+| --- | --- | --- |
+| Fraunces | `--font-display` | display headings, the serif voice |
+| Hanken Grotesk | `--font-sans` | UI and body |
+| Geist Mono | `--font-mono` | code, token names, uppercase micro-labels |
+
+Headings adopt the serif at the base-element level, since in a design system the
+type ramp is part of the foundation rather than something each page re-invents.
+
 ## Type scale
 
-A 1.25 (major third) modular scale on a 1rem / 16px base. Named by size, not by
-step, so intent reads at the call site.
+A 1.25 (major third) modular scale on a 1rem / 16px base, extended up top for
+display work. Big display sizes against small letter-spaced labels is the
+editorial move.
 
 | Token | Custom property | Size |
 | --- | --- | --- |
@@ -68,10 +95,14 @@ step, so intent reads at the call site.
 | xl | `--text-xl` | 1.5rem / 24px |
 | 2xl | `--text-2xl` | 1.875rem / 30px |
 | 3xl | `--text-3xl` | 2.25rem / 36px |
+| 4xl | `--text-4xl` | 3rem / 48px |
+| 5xl | `--text-5xl` | 4rem / 64px |
+| 6xl | `--text-6xl` | 5.25rem / 84px |
 
-Weights: `--weight-regular` 400, `--weight-medium` 500, `--weight-semibold` 600,
-`--weight-bold` 700. Line heights: `--leading-tight` 1.2 through
-`--leading-relaxed` 1.7.
+Weights run `--weight-regular` 400 through `--weight-black` 900 (Fraunces is
+variable, so the display face can push further). Line heights: `--leading-none` 1
+for display through `--leading-relaxed` 1.75. Tracking ranges from
+`--tracking-tightest` for big display to `--tracking-wider` for uppercase labels.
 
 ## Spacing
 

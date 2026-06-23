@@ -3,12 +3,15 @@ import './Button.scss';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonShape = 'rounded' | 'pill';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual weight and intent of the button. */
   variant?: ButtonVariant;
   /** Control height, padding, and font size. */
   size?: ButtonSize;
+  /** Corner treatment. `pill` is the editorial, marketing-CTA shape. */
+  shape?: ButtonShape;
   /** Show a spinner and block interaction while an action is in flight. */
   isLoading?: boolean;
   /**
@@ -34,6 +37,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({
   variant = 'primary',
   size = 'md',
+  shape = 'rounded',
   isLoading = false,
   loadingLabel = 'Loading',
   fullWidth = false,
@@ -51,6 +55,7 @@ export function Button({
     'button',
     `button--${variant}`,
     `button--${size}`,
+    `button--${shape}`,
     fullWidth && 'button--full-width',
     isLoading && 'button--loading',
     className,
