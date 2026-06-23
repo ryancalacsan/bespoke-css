@@ -117,6 +117,12 @@ OS in the file name, so a run on a different platform regenerates rather than
 fails falsely; update them on purpose with `npm run test:visual:update`, and in
 CI generate them in the official Playwright container so they match.
 
+**CI** (`.github/workflows/ci.yml`) runs all of this on every push and pull
+request: lint, format, types, and build in one job, the interaction tests and
+the visual regression in the pinned Playwright container so the screenshots
+compare against matching baselines. The committed baselines include a Linux set
+generated in that same image.
+
 ## Project structure
 
 ```
@@ -181,6 +187,6 @@ npm run dev           # the demo page at http://localhost:5173
 ## What comes next
 
 The component set covers the common form and disclosure patterns, a dark theme
-proves the token model holds, and the keyboard flows and visuals are under test.
-A reasonable next step is wiring these checks into a CI workflow, and growing the
-set as real product needs surface.
+proves the token model holds, the keyboard flows and visuals are under test, and
+CI runs all of it on every push. From here the system grows component by
+component as real product needs surface, on the same foundation.
