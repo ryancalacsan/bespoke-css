@@ -1,0 +1,135 @@
+// =============================================================================
+// Modal / Dialog
+// -----------------------------------------------------------------------------
+// Block: .modal. Elements: __overlay, __header, __title, __close, __body,
+// __footer. Size modifiers on the block. The overlay is a sibling concern but
+// namespaced under the block to keep the file self-contained.
+//
+// Motion is wrapped in motion-safe so the fade and lift never play for users
+// who asked the OS to reduce motion.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.modal {
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+
+    background-color: var(--color-overlay);
+
+    @include mix.motion-safe {
+      animation: modal-overlay-in var(--duration-base) var(--ease-standard);
+    }
+  }
+
+  // The dialog surface itself.
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - var(--space-2xl));
+  overflow: hidden;
+
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+
+  @include mix.motion-safe {
+    animation: modal-in var(--duration-base) var(--ease-emphasized);
+  }
+
+  // --- Size modifiers -------------------------------------------------------
+  &--sm {
+    max-width: 24rem;
+  }
+
+  &--md {
+    max-width: 32rem;
+  }
+
+  &--lg {
+    max-width: 48rem;
+  }
+
+  // --- Header ---------------------------------------------------------------
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+  }
+
+  &__title {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    color: var(--color-text);
+  }
+
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    margin: calc(var(--space-2xs) * -1);
+
+    color: var(--color-text-muted);
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+    @include mix.transition(background-color, color);
+    @include mix.focus-ring;
+
+    &:hover {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+  }
+
+  &__close-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  // --- Body -----------------------------------------------------------------
+  &__body {
+    padding: 0 var(--space-lg);
+    overflow-y: auto;
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+  }
+
+  // --- Footer ---------------------------------------------------------------
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+}
+
+@keyframes modal-overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-md)) scale(0.98);
+  }
+}

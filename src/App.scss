@@ -1,0 +1,72 @@
+// Demo page styling. Not part of the component library; it only arranges the
+// showcase. Still token-driven, to stay honest.
+
+.demo {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding: var(--space-3xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  &__eyebrow {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  &__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-text);
+  }
+
+  &__lead {
+    font-size: var(--text-md);
+    color: var(--color-text-muted);
+    max-width: 42rem;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  &__heading {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+
+  // A button placed directly in a section (the modal trigger) should size to
+  // its content rather than stretch across the column.
+  &__section > .button {
+    align-self: flex-start;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-lg);
+    max-width: 40rem;
+  }
+}

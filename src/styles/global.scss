@@ -1,0 +1,26 @@
+// =============================================================================
+// Global entry point
+// -----------------------------------------------------------------------------
+// Load order matters: tokens become custom properties first, then the reset can
+// reference them, then base element styling. Import this once at the app root
+// (and it is wired into Storybook's preview) so every component inherits the
+// same foundation.
+// =============================================================================
+
+@use 'root';
+@use 'reset';
+@use 'functions' as fn;
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+// A focus-visible default for any natively focusable element that a component
+// has not styled itself. Keeps keyboard navigation legible everywhere.
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

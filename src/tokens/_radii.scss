@@ -1,0 +1,12 @@
+// =============================================================================
+// Border radius tokens
+// =============================================================================
+
+$radii: (
+  'none': 0,
+  'sm': 0.25rem,   // 4px  - inputs, small chips
+  'md': 0.5rem,    // 8px  - buttons, cards
+  'lg': 0.75rem,   // 12px - modals, panels
+  'xl': 1rem,      // 16px
+  'full': 9999px,  // pills, avatars
+);

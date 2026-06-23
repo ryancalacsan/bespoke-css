@@ -1,0 +1,41 @@
+// =============================================================================
+// Typography tokens
+// -----------------------------------------------------------------------------
+// A modular type scale built on a 1rem (16px) base with a 1.25 (major third)
+// ratio. Sizes are named by t-shirt size rather than by step number so intent
+// reads clearly at the call site.
+// =============================================================================
+
+$font-family: (
+  'sans': (system-ui, -apple-system, 'Segoe UI', roboto, helvetica, arial, sans-serif),
+  'mono': (ui-monospace, 'SF Mono', 'Cascadia Code', menlo, consolas, monospace),
+);
+
+// 1.25 modular scale, rounded to clean rem values.
+$font-size: (
+  'xs': 0.75rem,    // 12px - fine print, captions
+  'sm': 0.875rem,   // 14px - help text, dense UI
+  'base': 1rem,     // 16px - body default
+  'md': 1.125rem,   // 18px - lead paragraph
+  'lg': 1.25rem,    // 20px - small heading
+  'xl': 1.5rem,     // 24px
+  '2xl': 1.875rem,  // 30px
+  '3xl': 2.25rem,   // 36px
+);
+$font-weight: (
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+);
+$line-height: (
+  'tight': 1.2,   // headings
+  'snug': 1.35,
+  'normal': 1.5,  // body
+  'relaxed': 1.7,
+);
+$letter-spacing: (
+  'tight': -0.01em,
+  'normal': 0,
+  'wide': 0.02em,
+);

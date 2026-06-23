@@ -1,0 +1,91 @@
+// =============================================================================
+// TextField
+// -----------------------------------------------------------------------------
+// Block: .text-field (the label + input + messages group).
+// Elements: __label, __label-text, __required, __input, __help, __error.
+// Modifier: --invalid.
+// The error state is signalled by more than color (border weight + message)
+// so it does not rely on a user seeing red, per WCAG 1.4.1.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.text-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-family: var(--font-sans);
+
+  &__label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  &__required {
+    color: var(--color-danger);
+    font-weight: var(--weight-bold);
+  }
+
+  &__input {
+    width: 100%;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+
+    @include mix.transition(border-color, box-shadow);
+
+    &::placeholder {
+      color: var(--color-text-subtle);
+    }
+
+    &:hover:not(:disabled) {
+      border-color: var(--color-text-subtle);
+    }
+
+    // Custom focus treatment: a ring plus a color shift, since the input owns
+    // its border. focus-visible keeps it keyboard-friendly.
+    &:focus-visible {
+      outline: 2px solid var(--color-focus-ring);
+      outline-offset: 2px;
+      border-color: var(--color-border-focus);
+    }
+
+    &:disabled {
+      background-color: var(--color-bg);
+      color: var(--color-text-subtle);
+      cursor: not-allowed;
+    }
+  }
+
+  &__help {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__error {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-danger);
+  }
+
+  // --- Error state ----------------------------------------------------------
+  &--invalid {
+    .text-field__input {
+      border-color: var(--color-danger-border);
+
+      // Doubling the border weight gives a non-color cue.
+      border-width: 2px;
+
+      &:focus-visible {
+        outline-color: var(--color-danger-border);
+      }
+    }
+  }
+}

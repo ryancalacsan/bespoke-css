@@ -1,0 +1,69 @@
+// =============================================================================
+// Token bridge: SCSS maps -> CSS custom properties
+// -----------------------------------------------------------------------------
+// The SCSS maps are the source of truth. This file walks those maps once and
+// emits a matching custom property for each entry on :root. Components then read
+// `var(--color-primary)` rather than the Sass value, which means a theme can be
+// retargeted at runtime (data-theme attribute, user setting, etc.) without a
+// rebuild. Edit a token in tokens/, and both the Sass helper and the custom
+// property update from the same line.
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens' as tokens;
+
+:root {
+  // --- Color -----------------------------------------------------------------
+  @each $name, $value in tokens.$semantic {
+    --color-#{$name}: #{$value};
+  }
+
+  // --- Spacing ---------------------------------------------------------------
+  @each $name, $value in tokens.$spacing {
+    --space-#{$name}: #{$value};
+  }
+
+  // --- Typography ------------------------------------------------------------
+  @each $name, $value in tokens.$font-family {
+    --font-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$font-size {
+    --text-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$font-weight {
+    --weight-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$line-height {
+    --leading-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$letter-spacing {
+    --tracking-#{$name}: #{$value};
+  }
+
+  // --- Radii -----------------------------------------------------------------
+  @each $name, $value in tokens.$radii {
+    --radius-#{$name}: #{$value};
+  }
+
+  // --- Elevation -------------------------------------------------------------
+  @each $name, $value in tokens.$z-index {
+    --z-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$shadow {
+    --shadow-#{$name}: #{$value};
+  }
+
+  // --- Motion ----------------------------------------------------------------
+  @each $name, $value in tokens.$duration {
+    --duration-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$easing {
+    --ease-#{$name}: #{$value};
+  }
+}

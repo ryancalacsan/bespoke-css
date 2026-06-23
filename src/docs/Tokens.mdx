@@ -1,0 +1,103 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Design tokens" />
+
+# Design tokens
+
+Tokens are the single source of truth for color, type, spacing, radii, motion,
+and stacking order. They live as SCSS maps in `src/tokens/`. A build step walks
+those maps once and emits a matching CSS custom property on `:root`, so a value
+is written in exactly one place and reaches components two ways:
+
+- `var(--color-primary)` for runtime theming (the common case in components)
+- `fn.color('primary')` for compile-time work like `calc()` and media queries
+
+Change a token in `src/tokens/`, and both paths update from the same line. No
+component holds a raw hex or pixel value.
+
+## Color
+
+Primitives are raw ramps (neutral, brand, danger, success). Components never use
+them directly. They use the semantic roles below, which are chosen so every
+text-on-surface pairing clears WCAG 2.2 AA.
+
+| Role | Custom property | Value | Contrast on surface |
+| --- | --- | --- | --- |
+| Text | `--color-text` | neutral 900 | 17.4:1 (AAA) |
+| Muted text | `--color-text-muted` | neutral 600 | 7.4:1 (AAA) |
+| Subtle text | `--color-text-subtle` | neutral 500 | 4.7:1 (AA) |
+| On primary | `--color-text-on-primary` | white on brand 600 | 6.3:1 (AA) |
+| Primary action | `--color-primary` | brand 600 | — |
+| Danger text | `--color-danger` | danger 700 | 6.8:1 (AA) |
+| Success text | `--color-success` | success 700 | 4.9:1 (AA) |
+| Field border | `--color-border-strong` | neutral 400 | 3.1:1 boundary |
+
+Borders that carry meaning (a field outline) use `--color-border-strong` so they
+clear the 3:1 minimum for UI components. Purely decorative dividers use the
+lighter `--color-border`.
+
+## Type scale
+
+A 1.25 (major third) modular scale on a 1rem / 16px base. Named by size, not by
+step, so intent reads at the call site.
+
+| Token | Custom property | Size |
+| --- | --- | --- |
+| xs | `--text-xs` | 0.75rem / 12px |
+| sm | `--text-sm` | 0.875rem / 14px |
+| base | `--text-base` | 1rem / 16px |
+| md | `--text-md` | 1.125rem / 18px |
+| lg | `--text-lg` | 1.25rem / 20px |
+| xl | `--text-xl` | 1.5rem / 24px |
+| 2xl | `--text-2xl` | 1.875rem / 30px |
+| 3xl | `--text-3xl` | 2.25rem / 36px |
+
+Weights: `--weight-regular` 400, `--weight-medium` 500, `--weight-semibold` 600,
+`--weight-bold` 700. Line heights: `--leading-tight` 1.2 through
+`--leading-relaxed` 1.7.
+
+## Spacing
+
+A 4px base grid. Every margin, padding, and gap snaps to one of these so density
+and rhythm stay even across components.
+
+| Token | Custom property | Value |
+| --- | --- | --- |
+| 2xs | `--space-2xs` | 0.25rem / 4px |
+| xs | `--space-xs` | 0.5rem / 8px |
+| sm | `--space-sm` | 0.75rem / 12px |
+| md | `--space-md` | 1rem / 16px |
+| lg | `--space-lg` | 1.5rem / 24px |
+| xl | `--space-xl` | 2rem / 32px |
+| 2xl | `--space-2xl` | 3rem / 48px |
+| 3xl | `--space-3xl` | 4rem / 64px |
+
+## Radii
+
+| Token | Custom property | Value | Used by |
+| --- | --- | --- | --- |
+| sm | `--radius-sm` | 0.25rem | inputs |
+| md | `--radius-md` | 0.5rem | buttons, cards |
+| lg | `--radius-lg` | 0.75rem | modals |
+| full | `--radius-full` | 9999px | pills, spinners |
+
+## Z-index
+
+A named stacking scale. Order is intentional rather than a contest of magic
+numbers.
+
+| Token | Custom property | Value |
+| --- | --- | --- |
+| dropdown | `--z-dropdown` | 1000 |
+| sticky | `--z-sticky` | 1100 |
+| overlay | `--z-overlay` | 1200 |
+| modal | `--z-modal` | 1300 |
+| popover | `--z-popover` | 1400 |
+| toast | `--z-toast` | 1500 |
+
+## Motion
+
+Durations (`--duration-fast` 120ms to `--duration-slow` 320ms) and easings
+(`--ease-standard`, `--ease-emphasized`, `--ease-exit`). Every animated property
+is wrapped in a `prefers-reduced-motion: no-preference` guard, so motion never
+plays for users who asked the OS to reduce it.

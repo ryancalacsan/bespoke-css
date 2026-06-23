@@ -1,0 +1,64 @@
+// =============================================================================
+// Token accessor functions
+// -----------------------------------------------------------------------------
+// Thin, typed getters over the raw maps. They give us two things:
+//   - A single failure point. Ask for a key that does not exist and the build
+//     stops with a clear message instead of emitting an empty value.
+//   - A consistent call site. `fn.space('md')` reads better than digging into
+//     a map by hand, and it keeps components honest about using tokens.
+//
+// Most components reference CSS custom properties (`var(--space-md)`) so themes
+// can shift at runtime. These functions are for the cases where a raw Sass
+// value is needed at compile time, such as inside a `calc()` or a media query.
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens' as tokens;
+
+@function _get($map, $key, $name) {
+  @if not map.has-key($map, $key) {
+    @error 'Unknown #{$name} token: "#{$key}".';
+  }
+
+  @return map.get($map, $key);
+}
+
+@function color($key) {
+  @return _get(tokens.$semantic, $key, 'color');
+}
+
+@function space($key) {
+  @return _get(tokens.$spacing, $key, 'spacing');
+}
+
+@function font-size($key) {
+  @return _get(tokens.$font-size, $key, 'font-size');
+}
+
+@function font-weight($key) {
+  @return _get(tokens.$font-weight, $key, 'font-weight');
+}
+
+@function line-height($key) {
+  @return _get(tokens.$line-height, $key, 'line-height');
+}
+
+@function radius($key) {
+  @return _get(tokens.$radii, $key, 'radius');
+}
+
+@function z($key) {
+  @return _get(tokens.$z-index, $key, 'z-index');
+}
+
+@function shadow($key) {
+  @return _get(tokens.$shadow, $key, 'shadow');
+}
+
+@function duration($key) {
+  @return _get(tokens.$duration, $key, 'duration');
+}
+
+@function easing($key) {
+  @return _get(tokens.$easing, $key, 'easing');
+}

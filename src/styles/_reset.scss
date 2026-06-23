@@ -1,0 +1,59 @@
+// =============================================================================
+// Minimal reset
+// -----------------------------------------------------------------------------
+// Just enough to flatten cross-browser defaults without fighting the cascade.
+// Intentionally small: the design system sets its own type and color, so a
+// heavy reset would only get overwritten.
+// =============================================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+body {
+  min-height: 100vh;
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+// Respect users who ask the OS to reduce motion: kill long animations and
+// smooth scrolling globally. Individual components reinforce this, but this is
+// the safety net.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

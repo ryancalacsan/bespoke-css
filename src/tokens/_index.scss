@@ -1,0 +1,14 @@
+// =============================================================================
+// Token barrel
+// -----------------------------------------------------------------------------
+// Single entry point for the raw token maps. Style modules pull these in with
+//   @use '../tokens' as tokens;
+// and read values through the helpers in `styles/functions`.
+// =============================================================================
+
+@forward 'colors';
+@forward 'typography';
+@forward 'spacing';
+@forward 'radii';
+@forward 'elevation';
+@forward 'motion';
