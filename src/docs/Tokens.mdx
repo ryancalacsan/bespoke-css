@@ -36,6 +36,23 @@ Borders that carry meaning (a field outline) use `--color-border-strong` so they
 clear the 3:1 minimum for UI components. Purely decorative dividers use the
 lighter `--color-border`.
 
+### Theming
+
+The semantic roles are emitted twice, from two SCSS maps: `$semantic` for light
+and `$semantic-dark` for dark. Components only ever read a role, so the theme
+switches with no component changes. Use the theme switcher in the Storybook
+toolbar to flip every story, and watch the Accessibility panel to confirm the
+dark theme holds the same AA bar.
+
+- `[data-theme="dark"]` on the root opts in to dark.
+- `[data-theme="light"]` forces light, even under an OS dark setting.
+- With no attribute set, `prefers-color-scheme` decides.
+
+Both themes clear AA. One split the dark theme made explicit: `--color-danger`
+is the text color (a light red on dark), while `--color-danger-solid` is the
+danger button background (a darker red so its white label passes). They are the
+same value in the light theme and diverge in the dark one.
+
 ## Type scale
 
 A 1.25 (major third) modular scale on a 1rem / 16px base. Named by size, not by

@@ -100,11 +100,11 @@
   }
 
   &--danger {
-    background-color: var(--color-danger);
-    color: var(--color-text-on-primary);
+    background-color: var(--color-danger-solid);
+    color: var(--color-text-on-danger);
 
     &:hover:not(:disabled) {
-      background-color: var(--color-danger-border);
+      background-color: var(--color-danger-solid-hover);
     }
 
     &:active:not(:disabled) {

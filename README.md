@@ -63,9 +63,19 @@ Edit one line in `src/tokens/`, and both paths update together.
 
 **Color roles, not raw colors.** The palette has two levels. Primitives are the
 raw ramps. Semantic roles (`text`, `primary`, `danger`, `border-strong`) are
-what components actually use. A future theme repoints a role without touching a
-single component. Every text-on-surface pairing is chosen to meet WCAG 2.2 AA,
-and the ratios are documented in the token reference.
+what components actually use. Every text-on-surface pairing is chosen to meet
+WCAG 2.2 AA, and the ratios are documented in the token reference.
+
+**Two themes, one set of roles.** The dark theme is the payoff of that split. It
+is a second set of values for the same role names, and nothing else. No
+component file changed to support it. Switching is a single `data-theme="dark"`
+attribute on the root, and the system also follows the OS `prefers-color-scheme`
+when no choice is set. The dark theme is held to the same AA bar, which surfaced
+one honest refinement: a danger button needs a dark enough red for its white
+label, while danger _text_ needs a light enough red on a dark surface. Those are
+different jobs, so the solid action color lives in its own role rather than being
+overloaded onto the text color. The demo page has a toggle; Storybook has one in
+its toolbar so the axe panel can check both themes.
 
 **Accessibility is structural.** It is part of each component's contract:
 
@@ -142,7 +152,7 @@ npm run dev           # the demo page at http://localhost:5173
 
 ## What comes next
 
-The component set covers the common form and disclosure patterns. The natural
-next steps are a dark theme, proved out by repointing the semantic color roles
-with no component changes, and automated coverage: Storybook interaction tests
-for the keyboard flows and a visual regression pass.
+The component set covers the common form and disclosure patterns, and a dark
+theme proves the token model holds. The natural next step is automated coverage:
+Storybook interaction tests for the keyboard flows and a visual regression pass
+across both themes.

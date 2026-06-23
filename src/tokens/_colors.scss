@@ -44,18 +44,33 @@ $danger: (
   '50': #fef2f2,
   '100': #fee2e2,
   '200': #fecaca,
+  '300': #fca5a5,
+  '400': #f87171,
+  '500': #ef4444,
   '600': #dc2626,
   '700': #b91c1c,
   '800': #991b1b,
+  '950': #2a0a0a,
 );
 $success: (
   '50': #f0fdf4,
+  '400': #4ade80,
   '600': #16a34a,
   '700': #15803d,
+  '950': #052e16,
 );
 
 // --- Semantic roles ---------------------------------------------------------
-// Contrast notes are measured against the role each token sits on.
+// Two themes share one set of role names. Components only ever read a role, so
+// switching the theme is a matter of repointing these and nothing else. Every
+// pairing is annotated with its measured contrast against the surface it lands
+// on, and both themes clear WCAG 2.2 AA.
+//
+// One subtlety the dark theme exposes: `danger` as text wants to be a light red
+// on a dark surface, while a danger button wants a darker red so its white
+// label passes. Those are genuinely different needs, so the solid action color
+// lives in its own `danger-solid` role rather than being overloaded onto
+// `danger`.
 
 $semantic: (
   // Surfaces
@@ -83,6 +98,9 @@ $semantic: (
 
   // Feedback: error
   'danger': map.get($danger, '700'),      // 6.8:1 text on white
+  'danger-solid': map.get($danger, '700'),     // button bg, white label 6.8:1
+  'danger-solid-hover': map.get($danger, '800'),
+  'text-on-danger': map.get($neutral, '0'),    // white label on danger button
   'danger-border': map.get($danger, '600'),
   'danger-bg': map.get($danger, '50'),
 
@@ -99,4 +117,57 @@ $semantic: (
   // Inverse surface for tooltips and dark chips (white on it: 17:1)
   'inverse-surface': map.get($neutral, '900'),
   'inverse-text': map.get($neutral, '0'),
+);
+
+// --- Dark theme -------------------------------------------------------------
+// Same roles, repointed for a dark canvas. Surfaces step up from near-black,
+// text steps down from near-white, and the primary action flips to a lighter
+// indigo carrying dark text (which is the accessible direction for a bright
+// accent on dark, and the conventional one).
+
+$semantic-dark: (
+  // Surfaces
+  'bg': map.get($neutral, '900'),         // app canvas
+  'surface': map.get($neutral, '800'),    // cards, modals, fields
+  'surface-raised': map.get($neutral, '700'),
+
+  // Text (on `surface` = neutral-800)
+  'text': map.get($neutral, '50'),        // 14.0:1  AAA
+  'text-muted': map.get($neutral, '300'), // 9.0:1   AAA, help text
+  'text-subtle': map.get($neutral, '400'),// 5.4:1   AA,  placeholders
+  'text-on-primary': map.get($neutral, '900'), // dark on brand-400: 5.9:1 AA
+
+  // Borders (3:1 against neutral-800 surface)
+  'border': map.get($neutral, '700'),     // decorative divider
+  'border-strong': map.get($neutral, '500'), // 3.1:1 field outline
+  'border-focus': map.get($brand, '400'),
+
+  // Brand / primary action (lighter indigo + dark text)
+  'primary': map.get($brand, '400'),
+  'primary-hover': map.get($brand, '300'),
+  'primary-active': map.get($brand, '200'),
+  'primary-bg': rgba(map.get($brand, '400'), 0.16),
+  'primary-bg-strong': rgba(map.get($brand, '400'), 0.28),
+
+  // Feedback: error
+  'danger': map.get($danger, '400'),      // 5.3:1 text on neutral-800
+  'danger-solid': map.get($danger, '600'),     // button bg, white label 4.9:1
+  'danger-solid-hover': map.get($danger, '700'),
+  'text-on-danger': map.get($neutral, '0'),    // white label on danger button
+  'danger-border': map.get($danger, '400'),
+  'danger-bg': map.get($danger, '950'),
+
+  // Feedback: success
+  'success': map.get($success, '400'),    // 8.2:1 text on neutral-800
+  'success-bg': map.get($success, '950'),
+
+  // Focus ring
+  'focus-ring': map.get($brand, '400'),
+
+  // Overlay scrim behind modals
+  'overlay': rgba(#000, 0.6),
+
+  // Inverse surface flips to light, so a tooltip stays high-contrast
+  'inverse-surface': map.get($neutral, '50'),
+  'inverse-text': map.get($neutral, '900'),
 );

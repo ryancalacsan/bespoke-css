@@ -1,22 +1,49 @@
 // =============================================================================
 // Token bridge: SCSS maps -> CSS custom properties
 // -----------------------------------------------------------------------------
-// The SCSS maps are the source of truth. This file walks those maps once and
-// emits a matching custom property for each entry on :root. Components then read
-// `var(--color-primary)` rather than the Sass value, which means a theme can be
-// retargeted at runtime (data-theme attribute, user setting, etc.) without a
-// rebuild. Edit a token in tokens/, and both the Sass helper and the custom
-// property update from the same line.
+// The SCSS maps are the source of truth. This file walks them once and emits a
+// matching custom property for each entry, so a value is written in one place
+// and reaches components as `var(--...)`. Color roles are emitted per theme;
+// everything else (spacing, type, radii, motion) is theme-independent and lives
+// on :root once.
+//
+// Theme resolution:
+//   - :root defaults to light.
+//   - [data-theme='dark'] opts in to dark explicitly.
+//   - [data-theme='light'] forces light, even under an OS dark preference.
+//   - With no explicit choice, prefers-color-scheme: dark applies dark.
 // =============================================================================
 
 @use 'sass:map';
 @use '../tokens' as tokens;
 
-:root {
-  // --- Color -----------------------------------------------------------------
-  @each $name, $value in tokens.$semantic {
+@mixin theme-colors($colors) {
+  @each $name, $value in $colors {
     --color-#{$name}: #{$value};
   }
+}
+
+@mixin apply-light {
+  // color-scheme keeps native UI (scrollbars, form controls) in step.
+  color-scheme: light;
+
+  @include theme-colors(tokens.$semantic);
+}
+
+@mixin apply-dark {
+  color-scheme: dark;
+
+  @include theme-colors(tokens.$semantic-dark);
+
+  // Plain drop shadows vanish on a dark canvas, so they are deepened here to
+  // keep modals, menus, and tooltips legible against the page.
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 50%);
+  --shadow-lg: 0 16px 40px rgb(0 0 0 / 60%);
+}
+
+:root {
+  @include apply-light;
 
   // --- Spacing ---------------------------------------------------------------
   @each $name, $value in tokens.$spacing {
@@ -65,5 +92,19 @@
 
   @each $name, $value in tokens.$easing {
     --ease-#{$name}: #{$value};
+  }
+}
+
+[data-theme='light'] {
+  @include apply-light;
+}
+
+[data-theme='dark'] {
+  @include apply-dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include apply-dark;
   }
 }
