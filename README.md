@@ -1,5 +1,7 @@
 # Bespoke CSS
 
+[![CI](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml/badge.svg)](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml)
+
 A small, accessible React component library built to show design-system craft:
 hand-written SCSS with BEM, one source of truth for design tokens, and
 accessibility wired in from the first line rather than bolted on at the end.
