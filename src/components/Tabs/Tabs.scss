@@ -1,0 +1,77 @@
+// =============================================================================
+// Tabs
+// -----------------------------------------------------------------------------
+// Block: .tabs. Elements: __list (the tablist), __tab, __panel. The selected
+// tab is expressed with [aria-selected="true"], so the styling hangs off the
+// ARIA state rather than a separate modifier class. That keeps the visual and
+// the accessible state impossible to desync.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+
+  &__list {
+    display: flex;
+    gap: var(--space-2xs);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  &__tab {
+    appearance: none;
+    position: relative;
+    padding: var(--space-sm) var(--space-md);
+    background-color: transparent;
+    border: 0;
+
+    // Reserve space for the active underline so text does not shift.
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include mix.transition(color, border-color, background-color);
+
+    // Inset the focus ring so it reads against the bottom border.
+    &:focus-visible {
+      outline: 2px solid var(--color-focus-ring);
+      outline-offset: -2px;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    &:hover:not(:disabled, [aria-selected='true']) {
+      color: var(--color-text);
+      background-color: var(--color-bg);
+    }
+
+    &[aria-selected='true'] {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    &:disabled {
+      color: var(--color-text-subtle);
+      cursor: not-allowed;
+    }
+  }
+
+  &__panel {
+    padding: var(--space-lg) var(--space-2xs);
+    color: var(--color-text);
+    line-height: var(--leading-normal);
+
+    &:focus-visible {
+      outline: 2px solid var(--color-focus-ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+}

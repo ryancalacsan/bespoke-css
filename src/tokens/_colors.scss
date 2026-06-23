@@ -95,4 +95,8 @@ $semantic: (
 
   // Overlay scrim behind modals
   'overlay': rgba(map.get($neutral, '900'), 0.55),
+
+  // Inverse surface for tooltips and dark chips (white on it: 17:1)
+  'inverse-surface': map.get($neutral, '900'),
+  'inverse-text': map.get($neutral, '0'),
 );

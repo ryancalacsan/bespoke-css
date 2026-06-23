@@ -1,0 +1,123 @@
+// =============================================================================
+// Checkbox
+// -----------------------------------------------------------------------------
+// Block: .checkbox. Elements: __row (the clickable label), __control (the box
+// stack), __input, __icon, __label, __help, __error. Modifiers: --invalid,
+// --disabled. The check and dash are toggled purely by :checked / :indeterminate
+// so there is no JS-managed visual state.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-family: var(--font-sans);
+
+  &__row {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    cursor: pointer;
+  }
+
+  // The box stack: native input plus the two overlaid icons.
+  &__control {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+
+    // Nudge the box to sit on the label's first text line.
+    margin-top: 0.0625rem;
+  }
+
+  &__input {
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+    @include mix.transition(background-color, border-color);
+    @include mix.focus-ring;
+
+    &:hover:not(:disabled) {
+      border-color: var(--color-text-subtle);
+    }
+
+    &:checked,
+    &:indeterminate {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+
+  // Icons overlay the box, centered, and never intercept clicks.
+  &__icon {
+    position: absolute;
+    inset: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-text-on-primary);
+    pointer-events: none;
+    opacity: 0;
+
+    @include mix.transition(opacity);
+  }
+
+  // Show the check only when checked and not in the mixed state.
+  &__input:checked:not(:indeterminate) ~ .checkbox__icon--check {
+    opacity: 1;
+  }
+
+  // Show the dash in the mixed state, and make sure the check is hidden.
+  &__input:indeterminate ~ .checkbox__icon--dash {
+    opacity: 1;
+  }
+
+  &__label {
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+  }
+
+  &__help {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__error {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-danger);
+  }
+
+  // --- States ---------------------------------------------------------------
+  &--invalid {
+    .checkbox__input {
+      border-color: var(--color-danger-border);
+      border-width: 2px;
+    }
+  }
+
+  &--disabled {
+    .checkbox__row {
+      cursor: not-allowed;
+    }
+
+    .checkbox__label {
+      color: var(--color-text-subtle);
+    }
+
+    .checkbox__input {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}

@@ -1,0 +1,109 @@
+// =============================================================================
+// Tooltip
+// -----------------------------------------------------------------------------
+// Block: .tooltip (the position anchor). Element: __bubble, with placement
+// modifiers. Visibility is driven by a [data-open] attribute that mirrors React
+// state, so there is no class juggling. The fade is wrapped in motion-safe.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+
+  &__bubble {
+    position: absolute;
+    z-index: var(--z-popover);
+    width: max-content;
+    max-width: 16rem;
+    padding: var(--space-2xs) var(--space-xs);
+
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-inverse-text);
+    text-align: center;
+
+    background-color: var(--color-inverse-surface);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+
+    // Hidden by default. Kept in the DOM so aria-describedby still resolves.
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    @include mix.transition(opacity, visibility);
+
+    &[data-open] {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    // A small arrow rendered from a rotated square.
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: var(--color-inverse-surface);
+      transform: rotate(45deg);
+    }
+  }
+
+  // --- Placements -----------------------------------------------------------
+  $gap: var(--space-xs);
+
+  &__bubble--top {
+    bottom: calc(100% + #{$gap});
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::after {
+      top: 100%;
+      left: 50%;
+      margin-top: -0.25rem;
+      margin-left: -0.25rem;
+    }
+  }
+
+  &__bubble--bottom {
+    top: calc(100% + #{$gap});
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::after {
+      bottom: 100%;
+      left: 50%;
+      margin-bottom: -0.25rem;
+      margin-left: -0.25rem;
+    }
+  }
+
+  &__bubble--left {
+    right: calc(100% + #{$gap});
+    top: 50%;
+    transform: translateY(-50%);
+
+    &::after {
+      left: 100%;
+      top: 50%;
+      margin-left: -0.25rem;
+      margin-top: -0.25rem;
+    }
+  }
+
+  &__bubble--right {
+    left: calc(100% + #{$gap});
+    top: 50%;
+    transform: translateY(-50%);
+
+    &::after {
+      right: 100%;
+      top: 50%;
+      margin-right: -0.25rem;
+      margin-top: -0.25rem;
+    }
+  }
+}

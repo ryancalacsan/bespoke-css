@@ -1,0 +1,175 @@
+// =============================================================================
+// Select (custom listbox)
+// -----------------------------------------------------------------------------
+// Block: .select. Elements: __label, __required, __trigger, __value, __chevron,
+// __list, __option, __option-label, __check, __help, __error. Modifiers:
+// --invalid, --disabled, and on options --active / --disabled. The active
+// option (keyboard highlight) is separate from the selected option (the chosen
+// value), matching the two ARIA states aria-activedescendant and aria-selected.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-family: var(--font-sans);
+
+  &__label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  &__required {
+    color: var(--color-danger);
+    font-weight: var(--weight-bold);
+  }
+
+  // --- Trigger --------------------------------------------------------------
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    width: 100%;
+    min-height: 2.5rem;
+    padding: var(--space-xs) var(--space-sm);
+
+    font-family: inherit;
+    font-size: var(--text-base);
+    text-align: left;
+    color: var(--color-text);
+
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+    @include mix.transition(border-color, box-shadow);
+    @include mix.focus-ring;
+
+    &:hover:not(:disabled) {
+      border-color: var(--color-text-subtle);
+    }
+
+    &[aria-expanded='true'] {
+      border-color: var(--color-border-focus);
+    }
+  }
+
+  &__value {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &--placeholder {
+      color: var(--color-text-subtle);
+    }
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-text-muted);
+
+    @include mix.transition(transform);
+  }
+
+  &__trigger[aria-expanded='true'] &__chevron {
+    transform: rotate(180deg);
+  }
+
+  // --- Listbox --------------------------------------------------------------
+  &__list {
+    position: absolute;
+    top: calc(100% + var(--space-2xs));
+    left: 0;
+    right: 0;
+    z-index: var(--z-dropdown);
+
+    max-height: 16rem;
+    margin: 0;
+    padding: var(--space-2xs);
+    overflow-y: auto;
+    list-style: none;
+
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+
+    font-size: var(--text-base);
+    color: var(--color-text);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    user-select: none;
+
+    // The keyboard highlight. Driven by the --active modifier, which mirrors
+    // aria-activedescendant on the trigger.
+    &--active {
+      background-color: var(--color-primary-bg);
+    }
+
+    &[aria-selected='true'] {
+      font-weight: var(--weight-medium);
+      color: var(--color-primary);
+    }
+
+    &--disabled {
+      color: var(--color-text-subtle);
+      cursor: not-allowed;
+    }
+  }
+
+  &__check {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-primary);
+  }
+
+  &__help {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__error {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-danger);
+  }
+
+  // --- States ---------------------------------------------------------------
+  &--invalid {
+    .select__trigger {
+      border-color: var(--color-danger-border);
+      border-width: 2px;
+    }
+  }
+
+  &--disabled {
+    .select__label {
+      color: var(--color-text-subtle);
+    }
+
+    .select__trigger {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}

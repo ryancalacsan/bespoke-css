@@ -4,15 +4,15 @@ A small, accessible React component library built to show design-system craft:
 hand-written SCSS with BEM, one source of truth for design tokens, and
 accessibility wired in from the first line rather than bolted on at the end.
 
-This is Phase 1: the foundation plus three components (Button, TextField, and
-Modal). It is meant to be read as much as run.
+It is meant to be read as much as run.
 
 ## What is here
 
 - **React + TypeScript**, built with Vite.
 - **Design tokens** as SCSS maps, mirrored to CSS custom properties.
-- **Three components** with typed props, BEM SCSS, and full keyboard and ARIA
-  support: Button, TextField, Modal.
+- **Eight components** with typed props, BEM SCSS, and full keyboard and ARIA
+  support: Button, TextField, Modal, Checkbox, RadioGroup, Select, Tabs, and
+  Tooltip.
 - **Storybook** with the accessibility (axe) addon, prop controls, and a usage
   doc per component.
 - **A lint and format baseline**: oxlint for TypeScript, Stylelint for SCSS,
@@ -108,6 +108,11 @@ src/
     Button/            variants, sizes, loading, disabled
     TextField/         label, help text, error state, ARIA wiring
     Modal/             focus trap, escape, focus restore, scroll lock
+    Checkbox/          checked + indeterminate via pseudo-classes
+    RadioGroup/        fieldset/legend group, per-option help
+    Select/            ARIA listbox: activedescendant, type-ahead
+    Tabs/              roving tabindex, arrow keys, automatic activation
+    Tooltip/           hover + focus, escape to dismiss, describedby
   docs/
     Tokens.mdx         the token reference, rendered in Storybook
 ```
@@ -137,7 +142,7 @@ npm run dev           # the demo page at http://localhost:5173
 
 ## What comes next
 
-Phase 1 stops here on purpose. The natural next steps are more components on the
-same foundation (Select, Checkbox, Tooltip, Tabs), a dark theme proved out by
-repointing the semantic roles, and visual regression plus interaction tests in
-Storybook.
+The component set covers the common form and disclosure patterns. The natural
+next steps are a dark theme, proved out by repointing the semantic color roles
+with no component changes, and automated coverage: Storybook interaction tests
+for the keyboard flows and a visual regression pass.
