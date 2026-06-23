@@ -31,8 +31,23 @@
   // Shape
   border-radius: var(--radius-md);
 
-  @include mix.transition(background-color, border-color, color, box-shadow);
+  @include mix.transition(
+    background-color,
+    border-color,
+    color,
+    box-shadow,
+    transform
+  );
   @include mix.focus-ring;
+
+  // --- Shape modifiers ------------------------------------------------------
+  &--rounded {
+    border-radius: var(--radius-md);
+  }
+
+  &--pill {
+    border-radius: var(--radius-full);
+  }
 
   // --- Sizes ----------------------------------------------------------------
   &--sm {
@@ -58,6 +73,22 @@
   }
 
   // --- Variants -------------------------------------------------------------
+  // A 1px lift on hover gives filled and outlined buttons a tactile response.
+  // It collapses on press, and reduced-motion users simply get the color shift.
+  &--primary,
+  &--secondary,
+  &--danger {
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+
   &--primary {
     background-color: var(--color-primary);
     color: var(--color-text-on-primary);
@@ -88,7 +119,7 @@
 
   &--ghost {
     background-color: transparent;
-    color: var(--color-primary);
+    color: var(--color-accent-text);
 
     &:hover:not(:disabled) {
       background-color: var(--color-primary-bg);

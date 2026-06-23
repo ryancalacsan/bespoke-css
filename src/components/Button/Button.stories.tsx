@@ -34,6 +34,10 @@ const meta = {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg'],
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['rounded', 'pill'],
+    },
     isLoading: { control: 'boolean' },
     disabled: { control: 'boolean' },
     fullWidth: { control: 'boolean' },
@@ -59,6 +63,11 @@ export const Ghost: Story = {
 
 export const Danger: Story = {
   args: { variant: 'danger', children: 'Delete account' },
+};
+
+/** The pill shape, the editorial marketing-CTA treatment. */
+export const Pill: Story = {
+  args: { shape: 'pill', children: 'Get started' },
 };
 
 export const Loading: Story = {
