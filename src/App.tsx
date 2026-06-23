@@ -63,10 +63,12 @@ export function App() {
             </Button>
             <Tooltip content="Open the component docs">
               {/* A link styled as the secondary button. On the deployed site
-                  this serves the Storybook build at /storybook. */}
+                  this serves the Storybook build at /storybook/. The trailing
+                  slash matters: Storybook's manager uses relative asset paths
+                  that only resolve when the URL is a directory. */}
               <a
                 className="button button--secondary button--md button--pill"
-                href="/storybook"
+                href="/storybook/"
               >
                 Storybook
               </a>
