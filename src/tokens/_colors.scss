@@ -94,6 +94,10 @@ $semantic: (
   // Accent: the signal. Burnt orange for text/links (clears AA on paper).
   'accent-text': map.get($signal, '700'),
   'signal': map.get($signal, '500'),
+  // Ink text for the rare case of a label on a signal-orange fill: orange needs
+  // dark text to clear AA, and (unlike most roles) this one stays dark in both
+  // themes.
+  'text-on-signal': map.get($neutral, '900'),
 
   // Feedback: error
   'danger': map.get($danger, '700'),
@@ -147,6 +151,8 @@ $semantic-dark: (
   // Accent: bright orange clears AA as text on the dark surface
   'accent-text': map.get($signal, '400'),
   'signal': map.get($signal, '450'),
+  // Stays dark, like the light theme, so a label on the orange fill passes.
+  'text-on-signal': map.get($neutral, '950'),
 
   // Feedback: error
   'danger': map.get($danger, '400'),

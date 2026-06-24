@@ -92,7 +92,7 @@ const meta = {
         component:
           'The semantic color roles, rendered live from var(--color-*). Use the ' +
           'theme switcher in the toolbar to see them repoint between the light ' +
-          '(Daylight) and dark (Noir) themes. Components only ever read these ' +
+          '(paper) and dark (dev-mode) themes. Components only ever read these ' +
           'roles, never the raw ramps.',
       },
     },
