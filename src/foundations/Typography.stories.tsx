@@ -72,8 +72,8 @@ const meta = {
       description: {
         component:
           'The typefaces and the type scale, rendered from the font and size ' +
-          'tokens. An editorial pairing: Fraunces for display, Hanken Grotesk ' +
-          'for UI, Geist Mono for labels.',
+          'tokens. A technical pairing: Hanken Grotesk for display and UI, ' +
+          'Geist Mono for labels.',
       },
     },
   },
@@ -92,17 +92,7 @@ export const Specimen: Story = {
       }}
     >
       <Section title="Families">
-        <Row label="display">
-          <div
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'var(--text-3xl)',
-            }}
-          >
-            Fraunces
-          </div>
-        </Row>
-        <Row label="sans">
+        <Row label="display / sans">
           <div
             style={{
               fontFamily: 'var(--font-sans)',
@@ -124,7 +114,7 @@ export const Specimen: Story = {
         </Row>
       </Section>
 
-      <Section title="Display scale (Fraunces)">
+      <Section title="Display scale (Hanken Grotesk)">
         {SIZES.slice(0, 5).map((size) => (
           <Row key={size} label={`text-${size}`}>
             <div
