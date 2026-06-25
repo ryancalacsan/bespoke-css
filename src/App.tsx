@@ -44,7 +44,7 @@ export function App() {
         <header className="spec__rail">
           <a className="spec__brand" href="#top">
             <span className="spec__dot" aria-hidden="true" />
-            Bespoke
+            Caliper
           </a>
           <div className="spec__ruler" aria-hidden="true" />
           <div className="spec__railmeta">
@@ -242,7 +242,7 @@ export function App() {
         </main>
 
         <footer className="spec__footer">
-          <span>Bespoke</span>
+          <span>Caliper</span>
           <span>An accessible component system</span>
           <span>WCAG 2.2 AA</span>
         </footer>

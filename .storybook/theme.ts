@@ -7,7 +7,7 @@ import { create } from 'storybook/theming';
 export default create({
   base: 'light',
 
-  brandTitle: 'Bespoke — design system',
+  brandTitle: 'Caliper UI — design system',
   brandTarget: '_self',
 
   colorPrimary: '#b83400',

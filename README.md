@@ -1,16 +1,83 @@
-# Bespoke CSS
+# Caliper UI
 
-[![CI](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml/badge.svg)](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml)
+[![CI](https://github.com/ryancalacsan/caliper-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/ryancalacsan/caliper-ui/actions/workflows/ci.yml)
 
-**[Live demo](https://bespoke-css.vercel.app)** · **[Component docs (Storybook)](https://bespoke-css.vercel.app/storybook/)**
+**[Live demo](https://caliper-ui.vercel.app)** · **[Component docs (Storybook)](https://caliper-ui.vercel.app/storybook/)**
 
-![The Bespoke demo landing, drawn as a technical spec sheet on warm paper: a ruler rail, a crop-mark frame, and a big grotesque headline reading "A component system, drawn to spec." dimensioned like an engineering drawing with crosshair marks and a width annotation, in ink with one construction-orange accent.](.github/assets/hero.png)
+![The Caliper UI demo landing, drawn as a technical spec sheet on warm paper: a ruler rail, a crop-mark frame, and a big grotesque headline reading "A component system, drawn to spec." dimensioned like an engineering drawing with crosshair marks and a width annotation, in ink with one construction-orange accent.](.github/assets/hero.png)
 
 A small, accessible React component library built to show design-system craft:
 hand-written SCSS with BEM, one source of truth for design tokens, and
 accessibility wired in from the first line rather than bolted on at the end.
 
 It is meant to be read as much as run.
+
+## Install
+
+```bash
+npm install @ryancalacsan/caliper-ui
+```
+
+React 18 or newer is a peer dependency (your app provides it). The package ships
+ESM with types and is safe to use in React Server Components.
+
+## Usage
+
+Import the stylesheet once at your app root, then use the components:
+
+```tsx
+import '@ryancalacsan/caliper-ui/styles.css';
+import { Button } from '@ryancalacsan/caliper-ui';
+
+export function Example() {
+  return <Button onClick={() => alert('hi')}>Save changes</Button>;
+}
+```
+
+Themes switch by a `data-theme` attribute on `<html>` (`"light"` or `"dark"`);
+with no attribute set, the OS `prefers-color-scheme` decides. Want only the
+tokens (the CSS custom properties), without component styles? Import
+`@ryancalacsan/caliper-ui/tokens.css` instead.
+
+### Next.js App Router
+
+The styling is global CSS, so import it once in the root layout. Interactive
+components (`Modal`, `Select`, `Tabs`, `Tooltip`, `Checkbox`, `RadioGroup`,
+`TextField`) are marked `"use client"`; `Button` renders on the server.
+
+```tsx
+// app/layout.tsx
+import '@ryancalacsan/caliper-ui/styles.css';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" data-theme="light">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+To set the theme from the user's choice with no flash on first paint, set
+`data-theme` before React hydrates with a tiny inline script in `<head>`:
+
+```tsx
+<head>
+  <script
+    dangerouslySetInnerHTML={{
+      __html:
+        "try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}",
+    }}
+  />
+</head>
+```
+
+A consumer can override any token by redefining its custom property (for example
+`:root { --color-signal: #2347ff; }`) after the import.
 
 ## What is here
 
@@ -153,8 +220,8 @@ URL. One build produces both: the `vercel-build` script builds the demo, then
 builds Storybook into `dist/storybook`, so the landing page serves at the root
 and the component docs at `/storybook`.
 
-- Demo: <https://bespoke-css.vercel.app>
-- Storybook: <https://bespoke-css.vercel.app/storybook/>
+- Demo: <https://caliper-ui.vercel.app>
+- Storybook: <https://caliper-ui.vercel.app/storybook/>
 
 ## Project structure
 
