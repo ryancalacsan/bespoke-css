@@ -31,12 +31,14 @@ export function Divider({
     .join(' ');
 
   if (orientation === 'vertical') {
+    // Spread first, then set the load-bearing a11y attributes so they can't be
+    // clobbered: a vertical divider must always announce as an oriented separator.
     return (
       <div
-        role="separator"
-        aria-orientation="vertical"
         className={classes}
         {...rest}
+        role="separator"
+        aria-orientation="vertical"
       />
     );
   }
