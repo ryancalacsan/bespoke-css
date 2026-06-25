@@ -148,3 +148,22 @@ export const IconOnly: Story = {
     await expect(button).toHaveClass('button--icon-only');
   },
 };
+
+/**
+ * A disabled `asChild` link can't take a native `disabled` attribute, so it is
+ * made non-interactive by hand: `aria-disabled`, removed from the tab order, and
+ * pointer-events dropped (and activation swallowed).
+ */
+export const DisabledLink: Story = {
+  args: { disabled: true },
+  render: (args) => (
+    <Button {...args} asChild>
+      <a href="#nope">Unavailable</a>
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByText('Unavailable').closest('a');
+    await expect(link).toHaveAttribute('aria-disabled', 'true');
+    await expect(link).toHaveAttribute('tabindex', '-1');
+  },
+};

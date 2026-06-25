@@ -118,6 +118,15 @@ export function Button({
       },
       child.props as Record<string, unknown>,
     );
+    if (isDisabled) {
+      // The child (e.g. a link) can't take a native `disabled` attribute, so
+      // make it non-interactive by hand: unfocusable, and swallow activation.
+      // The CSS drops pointer-events on [aria-disabled], covering mouse clicks.
+      merged.tabIndex = -1;
+      merged.onClick = (event: { preventDefault: () => void }) => {
+        event.preventDefault();
+      };
+    }
     return cloneElement(child, merged, decorate(child.props.children));
   }
 
