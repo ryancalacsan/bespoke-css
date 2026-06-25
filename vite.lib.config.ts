@@ -13,7 +13,7 @@ import preserveDirectives from 'rollup-preserve-directives';
 //   "use client" directives survive (Button stays server-renderable, the
 //   interactive components are client). rollup-preserve-directives keeps the
 //   directive banners.
-// - This emits lib/bespoke.css with the tokens, reset, and component styles, but
+// - This emits lib/caliper.css with the tokens, reset, and component styles, but
 //   lib mode prunes the @fontsource @font-face rules; scripts/build-fonts.mjs
 //   inlines the webfonts and prepends them afterward.
 export default defineConfig({
@@ -63,7 +63,7 @@ export default defineConfig({
         entryFileNames: '[name].js',
         assetFileNames: (asset) =>
           asset.names?.[0]?.endsWith('.css')
-            ? 'bespoke.css'
+            ? 'caliper.css'
             : 'assets/[name][extname]',
       },
     },

@@ -20,15 +20,15 @@ function mustContain(path, needle, label) {
 // Entry, types, and both stylesheet entries from package.json "exports".
 mustExist('lib/index.js');
 mustExist('lib/index.d.ts');
-mustExist('lib/bespoke.css');
+mustExist('lib/caliper.css');
 mustExist('lib/tokens.css');
 
 // The bundled stylesheet must actually carry the fonts (inlined) and the
 // tokens + component styles, not just fall back to system fonts.
-mustContain('lib/bespoke.css', '@font-face', 'the @font-face rules');
-mustContain('lib/bespoke.css', 'data:font', 'inlined font data');
-mustContain('lib/bespoke.css', '--color-text', 'the design tokens');
-mustContain('lib/bespoke.css', '.button', 'the component styles');
+mustContain('lib/caliper.css', '@font-face', 'the @font-face rules');
+mustContain('lib/caliper.css', 'data:font', 'inlined font data');
+mustContain('lib/caliper.css', '--color-text', 'the design tokens');
+mustContain('lib/caliper.css', '.button', 'the component styles');
 mustContain('lib/tokens.css', '--color-text', 'the design tokens');
 
 // The JS entry must not inject CSS at runtime (RSC-safe; CSS is a separate

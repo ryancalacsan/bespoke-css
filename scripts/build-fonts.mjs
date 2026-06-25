@@ -1,11 +1,11 @@
 // Inlines the self-hosted webfonts into the published stylesheet.
 //
 // Vite's library mode drops the @fontsource @font-face rules (their relative
-// url(./files/*.woff2) assets are pruned), so the JS build's lib/bespoke.css
+// url(./files/*.woff2) assets are pruned), so the JS build's lib/caliper.css
 // ships tokens + reset + component styles but no real typefaces. This script
 // reads the @fontsource CSS, keeps the latin + latin-ext normal-weight faces
 // (what the Spec Sheet uses), inlines each woff2 as a data URI, and prepends the
-// result to lib/bespoke.css so the stylesheet is self-contained.
+// result to lib/caliper.css so the stylesheet is self-contained.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
@@ -46,7 +46,7 @@ if (faces.length === 0) {
   process.exit(1);
 }
 
-const target = 'lib/bespoke.css';
+const target = 'lib/caliper.css';
 const existing = readFileSync(target, 'utf8');
 writeFileSync(target, `${faces.join('\n')}\n${existing}`);
 console.log(`build-fonts: inlined ${faces.length} font faces into ${target}`);
