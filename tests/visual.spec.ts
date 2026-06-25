@@ -23,6 +23,11 @@ const stories = [
   // Typography
   { id: 'typography-heading--scale', name: 'typography-heading' },
   { id: 'typography-prose--default', name: 'typography-prose' },
+  // Content & data display
+  { id: 'content-card--composed', name: 'content-card' },
+  { id: 'content-callout--tones', name: 'content-callout' },
+  { id: 'content-badge--tones', name: 'content-badge' },
+  { id: 'content-stat--strip', name: 'content-stat' },
 ];
 
 const themes = ['light', 'dark'] as const;

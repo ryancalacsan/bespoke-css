@@ -1,0 +1,37 @@
+// =============================================================================
+// Icon
+// -----------------------------------------------------------------------------
+// A sizing/color wrapper for any SVG. .icon is the block; --{size} sets the
+// box off the type scale. The SVG fills the box and inherits currentColor.
+// =============================================================================
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  color: inherit;
+
+  svg {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  &--sm {
+    font-size: var(--text-sm);
+  }
+
+  &--md {
+    font-size: var(--text-base);
+  }
+
+  &--lg {
+    font-size: var(--text-xl);
+  }
+
+  &--xl {
+    font-size: var(--text-3xl);
+  }
+}

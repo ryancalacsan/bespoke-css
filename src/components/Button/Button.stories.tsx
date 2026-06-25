@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, expect } from 'storybook/test';
 import { Button } from './Button';
 
 const meta = {
@@ -115,4 +116,54 @@ export const Gallery: Story = {
       ))}
     </div>
   ),
+};
+
+/**
+ * `asChild` renders the button styling onto a single child element - here a real
+ * link. The classes and props merge onto the `<a>`, so it looks like a button
+ * but navigates like a link (and works with framework `<Link>`s).
+ */
+export const AsLink: Story = {
+  args: { variant: 'secondary' },
+  render: (args) => (
+    <Button {...args} asChild>
+      <a href="#docs">Read the docs</a>
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole('link', {
+      name: 'Read the docs',
+    });
+    await expect(link.tagName).toBe('A');
+    await expect(link).toHaveClass('button');
+    await expect(link).toHaveAttribute('href', '#docs');
+  },
+};
+
+/** Icon-only buttons are square and take their accessible name from `aria-label`. */
+export const IconOnly: Story = {
+  args: { iconOnly: true, 'aria-label': 'Close', children: '✕' },
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: 'Close' });
+    await expect(button).toHaveClass('button--icon-only');
+  },
+};
+
+/**
+ * A disabled `asChild` link can't take a native `disabled` attribute, so it is
+ * made non-interactive by hand: `aria-disabled`, removed from the tab order, and
+ * pointer-events dropped (and activation swallowed).
+ */
+export const DisabledLink: Story = {
+  args: { disabled: true },
+  render: (args) => (
+    <Button {...args} asChild>
+      <a href="#nope">Unavailable</a>
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByText('Unavailable').closest('a');
+    await expect(link).toHaveAttribute('aria-disabled', 'true');
+    await expect(link).toHaveAttribute('tabindex', '-1');
+  },
 };
