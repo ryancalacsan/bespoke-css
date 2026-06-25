@@ -1,0 +1,34 @@
+// =============================================================================
+// SkipLink
+// -----------------------------------------------------------------------------
+// Hidden off the top of the viewport until focused, then it slides into the
+// top-left corner. Styled like a solid button so it reads as an action.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-sm);
+  inset-inline-start: var(--space-sm);
+  z-index: var(--z-toast);
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+
+  // Tucked above the viewport until it takes focus.
+  transform: translateY(calc(-100% - var(--space-xl)));
+
+  @include mix.transition(transform);
+  @include mix.focus-ring;
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}

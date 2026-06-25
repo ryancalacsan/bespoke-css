@@ -1,0 +1,32 @@
+// =============================================================================
+// Link
+// -----------------------------------------------------------------------------
+// A text link in the accent color. .link is the block; --always / --hover set
+// when the underline shows.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.link {
+  color: var(--color-accent-text);
+  text-underline-offset: 0.15em;
+  border-radius: var(--radius-sm);
+
+  @include mix.focus-ring;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  &--always {
+    text-decoration-line: underline;
+  }
+
+  &--hover {
+    text-decoration-line: none;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+}

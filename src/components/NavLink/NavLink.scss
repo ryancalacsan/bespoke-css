@@ -1,0 +1,42 @@
+// =============================================================================
+// NavLink
+// -----------------------------------------------------------------------------
+// A mono nav link. .nav-link is the block; --active styles the current page and
+// draws a signal underline.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-block: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+
+  @include mix.transition(color);
+  @include mix.focus-ring;
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &--active {
+    color: var(--color-text);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: -2px;
+      block-size: var(--motif-rule-width);
+      background-color: var(--color-signal);
+    }
+  }
+}

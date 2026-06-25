@@ -1,0 +1,35 @@
+// =============================================================================
+// ThemeToggle
+// -----------------------------------------------------------------------------
+// A mono toggle button styled like the Spec Sheet mode switch.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.theme-toggle {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+  background-color: transparent;
+  border: var(--motif-rule-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  @include mix.transition(background-color, color, border-color);
+  @include mix.focus-ring;
+
+  &:hover {
+    border-color: var(--color-text);
+  }
+}
+
+.theme-toggle__label {
+  min-inline-size: 2.5em;
+  text-align: center;
+}

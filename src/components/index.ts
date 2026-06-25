@@ -109,3 +109,28 @@ export type { DimensionLineProps, DimensionOrientation } from './DimensionLine';
 
 export { SheetHeader } from './SheetHeader';
 export type { SheetHeaderProps } from './SheetHeader';
+
+// Navigation & chrome
+export { AppHeader } from './AppHeader';
+export type { AppHeaderProps } from './AppHeader';
+
+export { NavLink } from './NavLink';
+export type { NavLinkProps } from './NavLink';
+
+export { Link } from './Link';
+export type { LinkProps, LinkUnderline } from './Link';
+
+export { Drawer } from './Drawer';
+export type { DrawerProps, DrawerSide } from './Drawer';
+
+export { ThemeToggle } from './ThemeToggle';
+export type { ThemeToggleProps } from './ThemeToggle';
+
+export { BackToTop } from './BackToTop';
+export type { BackToTopProps } from './BackToTop';
+
+export { SkipLink } from './SkipLink';
+export type { SkipLinkProps } from './SkipLink';
+
+export { VisuallyHidden } from './VisuallyHidden';
+export type { VisuallyHiddenProps } from './VisuallyHidden';
