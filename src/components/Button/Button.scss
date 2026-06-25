@@ -72,6 +72,12 @@
     width: 100%;
   }
 
+  // Square, for a single icon. Width tracks the size's min-height.
+  &--icon-only {
+    padding-inline: 0;
+    aspect-ratio: 1;
+  }
+
   // --- Variants -------------------------------------------------------------
   // A 1px lift on hover gives filled and outlined buttons a tactile response.
   // It collapses on press, and reduced-motion users simply get the color shift.

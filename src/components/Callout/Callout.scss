@@ -1,0 +1,65 @@
+// =============================================================================
+// Callout
+// -----------------------------------------------------------------------------
+// A bordered note with a colored leading rule. .callout is the block; --{tone}
+// colors the left rule and the icon. __title / __content / __icon are elements.
+// =============================================================================
+
+.callout {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  &--accent {
+    border-left-color: var(--color-signal);
+  }
+
+  &--success {
+    border-left-color: var(--color-success);
+  }
+
+  &--danger {
+    border-left-color: var(--color-danger);
+  }
+}
+
+.callout__icon {
+  flex: none;
+  color: var(--color-text-muted);
+
+  .callout--accent & {
+    color: var(--color-accent-text);
+  }
+
+  .callout--success & {
+    color: var(--color-success);
+  }
+
+  .callout--danger & {
+    color: var(--color-danger);
+  }
+}
+
+.callout__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.callout__title {
+  margin: 0;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.callout__content {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}

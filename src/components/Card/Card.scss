@@ -1,0 +1,43 @@
+// =============================================================================
+// Card
+// -----------------------------------------------------------------------------
+// A bordered surface. .card is the block; __media / __body / __header /
+// __footer are the regions. Media sits full-bleed at the top; the footer is
+// divided from the body.
+// =============================================================================
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.card__media {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+}
+
+.card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}

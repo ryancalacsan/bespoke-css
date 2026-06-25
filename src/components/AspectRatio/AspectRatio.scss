@@ -1,0 +1,21 @@
+// =============================================================================
+// AspectRatio
+// -----------------------------------------------------------------------------
+// Holds a fixed width-to-height ratio (set via the --aspect-ratio custom
+// property) so media reserves its space. The single child fills the box.
+// =============================================================================
+
+.aspect-ratio {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: var(--aspect-ratio, 16 / 9);
+  overflow: hidden;
+
+  > * {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+}

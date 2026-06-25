@@ -74,3 +74,22 @@ export type {
 
 export { Prose } from './Prose';
 export type { ProseProps, ProseSize } from './Prose';
+
+// Content & data display
+export { Icon } from './Icon';
+export type { IconProps, IconSize } from './Icon';
+
+export { Badge } from './Badge';
+export type { BadgeProps, BadgeTone } from './Badge';
+
+export { Card } from './Card';
+export type { CardProps } from './Card';
+
+export { Stat } from './Stat';
+export type { StatProps } from './Stat';
+
+export { Callout } from './Callout';
+export type { CalloutProps, CalloutTone } from './Callout';
+
+export { AspectRatio } from './AspectRatio';
+export type { AspectRatioProps } from './AspectRatio';

@@ -1,4 +1,6 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { cloneElement, isValidElement } from 'react';
+import type { ButtonHTMLAttributes, ReactElement, ReactNode } from 'react';
+import { mergeProps } from '../mergeProps';
 import './Button.scss';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
@@ -21,10 +23,18 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loadingLabel?: string;
   /** Stretch to fill the width of the parent container. */
   fullWidth?: boolean;
+  /** Render square for a single icon. Requires an `aria-label` for its name. */
+  iconOnly?: boolean;
   /** Optional element rendered before the label (an icon, for example). */
   leadingIcon?: ReactNode;
   /** Optional element rendered after the label. */
   trailingIcon?: ReactNode;
+  /**
+   * Render as the single child element instead of a `<button>` - for links and
+   * framework `<Link>`s. The button's classes and props merge onto the child:
+   * `<Button asChild><a href="/x">Go</a></Button>`.
+   */
+  asChild?: boolean;
   children: ReactNode;
 }
 
@@ -33,6 +43,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * focus, and form submission come for free from the platform. Loading state is
  * communicated three ways at once: a spinner (sighted users), aria-busy
  * (assistive tech), and a disabled interaction (everyone).
+ *
+ * `asChild` renders the styling onto a single child element instead - the
+ * escape hatch for links and framework `<Link>`s without losing the look.
  */
 export function Button({
   variant = 'primary',
@@ -41,8 +54,10 @@ export function Button({
   isLoading = false,
   loadingLabel = 'Loading',
   fullWidth = false,
+  iconOnly = false,
   leadingIcon,
   trailingIcon,
+  asChild = false,
   disabled,
   type = 'button',
   className,
@@ -56,12 +71,55 @@ export function Button({
     `button--${variant}`,
     `button--${size}`,
     `button--${shape}`,
+    iconOnly && 'button--icon-only',
     fullWidth && 'button--full-width',
     isLoading && 'button--loading',
     className,
   ]
     .filter(Boolean)
     .join(' ');
+
+  // Decorated inner content. `label` is the visible (or, when iconOnly, the
+  // icon) content; loading and icon affordances wrap around it.
+  const decorate = (label: ReactNode) => (
+    <>
+      {isLoading && <span className="button__spinner" aria-hidden="true" />}
+      {leadingIcon && !isLoading && (
+        <span className="button__icon" aria-hidden="true">
+          {leadingIcon}
+        </span>
+      )}
+      {iconOnly ? (
+        <span className="button__icon" aria-hidden="true">
+          {label}
+        </span>
+      ) : (
+        <span className="button__label">{label}</span>
+      )}
+      {trailingIcon && !isLoading && !iconOnly && (
+        <span className="button__icon" aria-hidden="true">
+          {trailingIcon}
+        </span>
+      )}
+      {isLoading && (
+        <span className="button__loading-text">{loadingLabel}</span>
+      )}
+    </>
+  );
+
+  if (asChild && isValidElement(children)) {
+    const child = children as ReactElement<{ children?: ReactNode }>;
+    const merged = mergeProps(
+      {
+        className: classes,
+        'aria-busy': isLoading || undefined,
+        'aria-disabled': isDisabled || undefined,
+        ...rest,
+      },
+      child.props as Record<string, unknown>,
+    );
+    return cloneElement(child, merged, decorate(child.props.children));
+  }
 
   return (
     <button
@@ -71,21 +129,7 @@ export function Button({
       aria-busy={isLoading || undefined}
       {...rest}
     >
-      {isLoading && <span className="button__spinner" aria-hidden="true" />}
-      {leadingIcon && !isLoading && (
-        <span className="button__icon" aria-hidden="true">
-          {leadingIcon}
-        </span>
-      )}
-      <span className="button__label">{children}</span>
-      {trailingIcon && !isLoading && (
-        <span className="button__icon" aria-hidden="true">
-          {trailingIcon}
-        </span>
-      )}
-      {isLoading && (
-        <span className="button__loading-text">{loadingLabel}</span>
-      )}
+      {decorate(children)}
     </button>
   );
 }
