@@ -48,7 +48,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:lib": "rm -rf lib && vite build --config vite.lib.config.ts && sass src/styles/tokens.scss lib/tokens.css --no-source-map --style=expanded",
+    "build:lib": "rm -rf lib && vite build --config vite.lib.config.ts && node scripts/build-fonts.mjs && sass src/styles/tokens.scss lib/tokens.css --no-source-map --style=expanded && node scripts/check-lib.mjs",
     "prepublishOnly": "npm run build:lib",
     "vercel-build": "npm run build && STORYBOOK_BASE_PATH=/storybook/ storybook build -o dist/storybook",
     "preview": "vite preview",

@@ -13,8 +13,9 @@ import preserveDirectives from 'rollup-preserve-directives';
 //   "use client" directives survive (Button stays server-renderable, the
 //   interactive components are client). rollup-preserve-directives keeps the
 //   directive banners.
-// - CSS from the components + the global token/reset layer is extracted into a
-//   single stylesheet the consumer imports once; it is not injected by the JS.
+// - This emits lib/bespoke.css with the tokens, reset, and component styles, but
+//   lib mode prunes the @fontsource @font-face rules; scripts/build-fonts.mjs
+//   inlines the webfonts and prepends them afterward.
 export default defineConfig({
   plugins: [
     react(),
