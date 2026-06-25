@@ -13,4 +13,4 @@ npm run changeset
 Pick the bump and write a short summary. Commit the generated file with your PR.
 On merge to `main`, the release workflow opens (or updates) a "Version Packages"
 PR that applies the bumps and updates the changelog. Merging that PR publishes to
-npm (once an `NPM_TOKEN` secret is set).
+npm via Trusted Publishing (GitHub OIDC, no token), with provenance.
