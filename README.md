@@ -83,9 +83,10 @@ A consumer can override any token by redefining its custom property (for example
 
 - **React + TypeScript**, built with Vite.
 - **Design tokens** as SCSS maps, mirrored to CSS custom properties.
-- **Eight components** with typed props, BEM SCSS, and full keyboard and ARIA
-  support: Button, TextField, Modal, Checkbox, RadioGroup, Select, Tabs, and
-  Tooltip.
+- **38 components** with typed props, BEM SCSS, and full keyboard and ARIA
+  support: eight interactive (Button, TextField, Modal, Checkbox, RadioGroup,
+  Select, Tabs, Tooltip), plus layout primitives, typography, content and
+  data-display, the Spec Sheet motifs, and navigation chrome.
 - **Storybook** with the accessibility (axe) addon, prop controls, and a usage
   doc per component.
 - **Tests**: interaction tests that drive the keyboard flows, and visual
@@ -291,9 +292,12 @@ npm run dev           # the demo page at http://localhost:5173
 | `npm run format`             | Prettier write                      |
 | `npm run typecheck`          | TypeScript, no emit                 |
 
-## What comes next
+## Where it is now
 
-The foundation is in place: eight components, a token layer proven by a second
-(dark) theme, the keyboard flows and visuals under test, CI on every push, and a
-live deployment. From here the system grows component by component as real
-product needs surface, each one on the same foundation and held to the same bar.
+The system has grown to **38 components** across interactive controls, layout
+primitives, typography, content and data display, the Spec Sheet motifs, and
+navigation chrome — all on the same token layer, proven by a second (dark) theme,
+with the keyboard flows and visuals under test and CI on every push. It is
+published to npm (`@ryancalacsan/caliper-ui`) via Changesets and Trusted
+Publishing (OIDC, with provenance), and deployed: the demo at the root and the
+full Storybook at `/storybook`.
