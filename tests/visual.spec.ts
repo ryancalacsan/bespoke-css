@@ -34,6 +34,10 @@ const stories = [
   { id: 'motifs-gridbackdrop--default', name: 'motifs-gridbackdrop' },
   { id: 'motifs-sheetheader--default', name: 'motifs-sheetheader' },
   { id: 'motifs-dimensionline--horizontal', name: 'motifs-dimensionline' },
+  // Navigation & chrome
+  { id: 'chrome-appheader--default', name: 'chrome-appheader' },
+  { id: 'chrome-navlink--nav', name: 'chrome-navlink' },
+  { id: 'chrome-link--default', name: 'chrome-link' },
 ];
 
 const themes = ['light', 'dark'] as const;

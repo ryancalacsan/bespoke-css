@@ -1,0 +1,115 @@
+// =============================================================================
+// Drawer
+// -----------------------------------------------------------------------------
+// A focus-trapped side panel over a scrim. __overlay is the scrim; .drawer is
+// the panel; --left / --right set the edge it docks to. The slide-in animation
+// is dropped under reduced motion.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.drawer__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  background-color: var(--color-overlay);
+
+  @include mix.motion-safe {
+    animation: drawer-fade var(--duration-base) var(--ease-standard) both;
+  }
+}
+
+.drawer {
+  position: relative;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  inline-size: min(22rem, 85vw);
+  block-size: 100%;
+  margin-inline-start: auto;
+  background-color: var(--color-surface);
+  border-inline-start: var(--motif-rule-width) solid var(--color-text);
+  box-shadow: var(--shadow-lg);
+
+  @include mix.motion-safe {
+    animation: drawer-in-right var(--duration-base) var(--ease-standard) both;
+  }
+
+  &--left {
+    margin-inline: 0 auto;
+    border-inline-start: 0;
+    border-inline-end: var(--motif-rule-width) solid var(--color-text);
+
+    @include mix.motion-safe {
+      animation-name: drawer-in-left;
+    }
+  }
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.drawer__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  color: var(--color-text-muted);
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  @include mix.transition(background-color, color);
+  @include mix.focus-ring;
+
+  &:hover {
+    color: var(--color-text);
+    background-color: var(--color-primary-bg);
+  }
+}
+
+.drawer__close-icon {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+.drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg);
+}
+
+@keyframes drawer-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes drawer-in-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+}

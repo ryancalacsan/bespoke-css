@@ -1,0 +1,45 @@
+// =============================================================================
+// BackToTop
+// -----------------------------------------------------------------------------
+// A floating scroll-to-top button, hidden until --visible. Fixed to the
+// bottom-right; non-interactive while hidden (aria-hidden + tabindex -1).
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.back-to-top {
+  position: fixed;
+  inset-block-end: var(--space-xl);
+  inset-inline-end: var(--space-xl);
+  z-index: var(--z-sticky);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  font-size: var(--text-lg);
+  color: var(--color-text-on-primary);
+  background-color: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+
+  // Hidden state: faded and lifted away, non-interactive.
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(var(--space-md));
+
+  @include mix.transition(opacity, transform);
+  @include mix.focus-ring;
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  &--visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}

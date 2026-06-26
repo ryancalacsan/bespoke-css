@@ -1,0 +1,12 @@
+// =============================================================================
+// VisuallyHidden
+// -----------------------------------------------------------------------------
+// Hides content visually while leaving it in the accessibility tree. Wraps the
+// shared mixin so the technique lives in exactly one place.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.visually-hidden {
+  @include mix.visually-hidden;
+}
