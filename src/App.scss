@@ -469,3 +469,16 @@
     transform: translateY(0);
   }
 }
+
+// Demo-only filler cells used in the Layout plate.
+.demo-cell {
+  display: grid;
+  place-items: center;
+  padding: var(--space-md);
+  background-color: var(--color-primary-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

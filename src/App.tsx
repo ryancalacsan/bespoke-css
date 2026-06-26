@@ -9,6 +9,18 @@ import {
   Select,
   Tabs,
   Tooltip,
+  Heading,
+  Eyebrow,
+  Text,
+  Stack,
+  Inline,
+  Grid,
+  Divider,
+  Card,
+  Badge,
+  Callout,
+  NavLink,
+  Link,
 } from './components';
 import './App.scss';
 
@@ -48,7 +60,7 @@ export function App() {
           </a>
           <div className="spec__ruler" aria-hidden="true" />
           <div className="spec__railmeta">
-            <span>Sheet 01 / 04</span>
+            <span>Sheet 01 / 08</span>
             <button
               type="button"
               className="spec__mode"
@@ -89,27 +101,25 @@ export function App() {
             </div>
 
             <p className="spec__lead">
-              A small, accessible React component library. Hand-written SCSS,
-              design tokens as the single source of truth, every measurement
-              deliberate. Eight components, two themes, WCAG 2.2 AA.
+              A small, accessible React component library, published on npm.
+              Hand-written SCSS, design tokens as the single source of truth,
+              every measurement deliberate. Thirty-eight components, two themes,
+              WCAG 2.2 AA.
             </p>
 
             <div className="spec__cta">
               <Button onClick={exploreComponents}>Explore the system</Button>
               <Tooltip content="Open the component docs">
-                <a
-                  className="button button--secondary button--md button--rounded"
-                  href="/storybook/"
-                >
-                  Storybook ↗
-                </a>
+                <Button asChild variant="secondary">
+                  <a href="/storybook/">Storybook ↗</a>
+                </Button>
               </Tooltip>
             </div>
 
             <dl className="spec__stats">
               <div>
                 <dt>Components</dt>
-                <dd>08</dd>
+                <dd>38</dd>
               </div>
               <div>
                 <dt>Themes</dt>
@@ -238,6 +248,99 @@ export function App() {
                 cannot scroll, and focus returns to the trigger when it closes.
               </p>
             </Modal>
+          </Plate>
+
+          <Plate
+            code="TYP — 05"
+            title="Typography"
+            meta={['scale: 1.25', 'Hanken + Geist']}
+          >
+            <Stack gap="sm" style={{ maxWidth: '32rem' }}>
+              <Eyebrow tone="accent">Display &amp; body</Eyebrow>
+              <Heading level={3} size="2xl">
+                Drawn, not written
+              </Heading>
+              <Text tone="muted">
+                Headings with size decoupled from level, a mono eyebrow, body
+                text, and a Prose container for rich content — all from the type
+                tokens.
+              </Text>
+            </Stack>
+          </Plate>
+
+          <Plate
+            code="LAY — 06"
+            title="Layout"
+            meta={['flex + grid', 'token gaps']}
+          >
+            <Stack gap="md" style={{ width: '100%', maxWidth: '34rem' }}>
+              <Inline gap="xs">
+                <Badge>Stack</Badge>
+                <Badge>Inline</Badge>
+                <Badge>Grid</Badge>
+                <Badge>Container</Badge>
+                <Badge>Section</Badge>
+              </Inline>
+              <Divider />
+              <Grid columns={3} gap="sm">
+                {[1, 2, 3].map((n) => (
+                  <div key={n} className="demo-cell">
+                    {n}
+                  </div>
+                ))}
+              </Grid>
+            </Stack>
+          </Plate>
+
+          <Plate
+            code="DSP — 07"
+            title="Content"
+            meta={['card + callout', 'composed']}
+          >
+            <Stack gap="md" style={{ width: '100%', maxWidth: '24rem' }}>
+              <Card
+                header={
+                  <Inline justify="between" align="start">
+                    <Eyebrow>Case study</Eyebrow>
+                    <Badge tone="accent">New</Badge>
+                  </Inline>
+                }
+                footer={
+                  <Button asChild size="sm" variant="secondary">
+                    <a href="/storybook/">Read more</a>
+                  </Button>
+                }
+              >
+                <Text size="sm" tone="muted">
+                  A project card composed from Card, Eyebrow, Badge, Text, and
+                  an asChild Button — the pattern a portfolio card uses.
+                </Text>
+              </Card>
+              <Callout tone="accent" title="Measured to spec">
+                Every color pairing is verified against WCAG 2.2 AA by a script.
+              </Callout>
+            </Stack>
+          </Plate>
+
+          <Plate
+            code="CHR — 08"
+            title="Navigation"
+            meta={['nav + links', 'a11y']}
+          >
+            <Stack gap="sm" style={{ maxWidth: '32rem' }}>
+              <Inline as="nav" gap="lg" aria-label="Demo navigation">
+                <NavLink href="#top" active>
+                  Docs
+                </NavLink>
+                <NavLink href="#top">API</NavLink>
+                <NavLink href="#top">Changelog</NavLink>
+              </Inline>
+              <Text size="sm" tone="muted">
+                Plus <Link href="/storybook/">styled links</Link>, a
+                focus-trapped Drawer, a theme toggle, skip links, and a sticky
+                AppHeader.
+              </Text>
+            </Stack>
           </Plate>
         </main>
 
