@@ -18,8 +18,8 @@ export interface CardProps extends ComponentPropsWithoutRef<'div'> {
   orientation?: CardOrientation;
   /**
    * Make the whole card a clickable surface (hover + focus-within ring). Put a
-   * `<Link stretch>` (or `<NavLink stretch>`) in the header to set the target;
-   * footer actions stay independently clickable.
+   * `<Link stretch>` in the header to set the target; footer actions stay
+   * independently clickable.
    */
   interactive?: boolean;
   children?: ReactNode;

@@ -9,9 +9,10 @@ additive - defaults are unchanged.
   with the footer pinned to the bottom so action rows line up), `orientation`
   (`horizontal` sets media beside the body and reflows to vertical when narrow),
   and `interactive` (a clickable card surface with hover + focus-within ring).
-- `Link` and `NavLink` gain a `stretch` prop - the stretched hit area that makes
-  a whole `<Card interactive>` follow one link while footer actions stay
-  clickable.
+- `Link` gains a `stretch` prop - the stretched hit area that makes a whole
+  `<Card interactive>` follow one link while footer actions stay clickable.
+  (Stretch is `Link`-only: `NavLink`'s own positioned underline keeps an overlay
+  from escaping past it.)
 - `Badge` gains `shape` (`square` takes the sharp radius to match the system).
 - `AspectRatio` gains `fit` (`contain` for diagrams, `cover` for photos).
 - `Frame` gains `marks` (`none` / `tlbr` / `all`) for the four-corner option.

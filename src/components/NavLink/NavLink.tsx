@@ -8,30 +8,23 @@ export interface NavLinkProps extends ComponentPropsWithoutRef<'a'> {
   active?: boolean;
   /** Render as the single child element (a framework `<Link>`) instead of `<a>`. */
   asChild?: boolean;
-  /** Stretch the clickable area over the nearest positioned ancestor (an interactive card). */
-  stretch?: boolean;
   children?: ReactNode;
 }
 
 /**
  * A navigation link in the mono voice, with an active state that draws a signal
- * underline and sets `aria-current="page"`. `stretch` makes it the click target
- * for a surrounding interactive card.
+ * underline and sets `aria-current="page"`. For a whole-card link use `Link`
+ * with `stretch` - NavLink's own positioned underline prevents it from
+ * stretching past itself.
  */
 export function NavLink({
   active = false,
   asChild = false,
-  stretch = false,
   className,
   children,
   ...rest
 }: NavLinkProps) {
-  const classes = [
-    'nav-link',
-    active && 'nav-link--active',
-    stretch && 'nav-link--stretch',
-    className,
-  ]
+  const classes = ['nav-link', active && 'nav-link--active', className]
     .filter(Boolean)
     .join(' ');
   const ariaCurrent = active ? ('page' as const) : undefined;

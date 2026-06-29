@@ -39,13 +39,4 @@
       background-color: var(--color-signal);
     }
   }
-
-  // Stretch the hit area over the nearest positioned ancestor (an interactive
-  // card), so the whole surface follows this one link.
-  &--stretch::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
 }

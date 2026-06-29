@@ -120,8 +120,8 @@ across the row, with no consumer CSS:
 ```
 
 **A whole card as a link.** Set `interactive` on the `Card` and `stretch` on the
-title `Link` (or `NavLink`). The link's hit area covers the card, so a click
-anywhere follows it, while footer actions stay clickable:
+title `Link`. The link's hit area covers the card, so a click anywhere follows
+it, while footer actions stay clickable:
 
 ```tsx
 <Card
