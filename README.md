@@ -90,8 +90,8 @@ library's styles will apply to it too. The reserved top-level block class names:
 > `drawer`, `eyebrow`, `frame`, `grid`, `grid-backdrop`, `heading`, `icon`,
 > `inline`, `link`, `mark`, `measure-frame`, `modal`, `nav-link`, `prose`,
 > `radio-group`, `section`, `select`, `sheet-header`, `skip-link`, `spacer`,
-> `stack`, `stat`, `stat-group`, `text`, `text-field`, `theme-toggle`,
-> `tooltip`, `visually-hidden`
+> `stack`, `stat`, `stat-group`, `tabs`, `text`, `text-field`,
+> `theme-toggle`, `tooltip`, `visually-hidden`
 
 Avoid these names for your own elements, or scope your own styles (CSS Modules, a
 prefix, or a cascade layer). A future major release will prefix every emitted
